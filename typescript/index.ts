@@ -29,3 +29,15 @@ class BlogPostDisplay {
     return `<h1>${this.blogPost.title}</h1><p>${this.blogPost.content}</p>`;
   }
 }
+
+class BlogPostJson {
+  constructor(public blogPost: BlogPost) {}
+
+  // Method related to post display
+  returnJSON() {
+    return {
+      title: this.blogPost.title,
+      constent: this.blogPost.content,
+    };
+  }
+}
