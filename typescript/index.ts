@@ -1,43 +1,15 @@
-class BlogPost {
-  title: string;
-  content: string;
+// regular - 10
+// premium - 20
+// gold  - 30
 
-  constructor(title: string, content: string) {
-    this.title = title;
-    this.content = content;
-  }
-
-  // Methods related to content management
-  createPost() {
-    // Implementation here
-  }
-
-  updatePost() {
-    // Implementation here
-  }
-
-  deletePost() {
-    // Implementation here
-  }
-}
-
-class BlogPostDisplay {
-  constructor(public blogPost: BlogPost) {}
-
-  // Method related to post display
-  displayHTML() {
-    return `<h1>${this.blogPost.title}</h1><p>${this.blogPost.content}</p>`;
-  }
-}
-
-class BlogPostJson {
-  constructor(public blogPost: BlogPost) {}
-
-  // Method related to post display
-  returnJSON() {
-    return {
-      title: this.blogPost.title,
-      constent: this.blogPost.content,
-    };
+class Discount {
+  giveDiscount(customerType: "premium" | "regular"): number {
+    if (customerType === "regular") {
+      return 10;
+    } else if (customerType === "premium") {
+      return 20;
+    } else {
+      return 10;
+    }
   }
 }
