@@ -6,6 +6,6 @@ class UserAuthentication {
   constructor(user: User) {}
 
   authenticate(password: string) {
-    // implementation logic ehre
+    // implementation logic here
   }
 }
