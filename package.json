@@ -1,0 +1,24 @@
+{
+  "name": "typescript-design-patterns",
+  "version": "1.0.0",
+  "description": "Repository for Design Patterns",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "(npx parcel ./index.html) & npx parcel watch ./index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manikbajaj/typescript-design-patterns.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/manikbajaj/typescript-design-patterns/issues"
+  },
+  "homepage": "https://github.com/manikbajaj/typescript-design-patterns#readme",
+  "devDependencies": {
+    "parcel": "^2.9.2",
+    "prettier": "2.8.8"
+  }
+}
