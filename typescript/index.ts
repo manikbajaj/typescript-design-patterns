@@ -19,6 +19,10 @@ class BlogPost {
   deletePost() {
     // Implementation here
   }
+}
+
+class BlogPostDisplay {
+  constructor(public blogPost: BlogPost) {}
 
   // Method related to post display
   displayHTML() {
