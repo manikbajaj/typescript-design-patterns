@@ -1,11 +1,27 @@
-class User {
-  constructor(name: string, email: string) {}
-}
+class BlogPost {
+  title: string;
+  content: string;
 
-class UserAuthentication {
-  constructor(user: User) {}
+  constructor(title: string, content: string) {
+    this.title = title;
+    this.content = content;
+  }
 
-  authenticate(password: string) {
-    // implementation logic ehre
+  // Methods related to content management
+  createPost() {
+    // Implementation here
+  }
+
+  updatePost() {
+    // Implementation here
+  }
+
+  deletePost() {
+    // Implementation here
+  }
+
+  // Method related to post display
+  displayHTML() {
+    return `<h1>${this.title}</h1><p>${this.content}</p>`;
   }
 }
