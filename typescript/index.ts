@@ -26,6 +26,6 @@ class BlogPostDisplay {
 
   // Method related to post display
   displayHTML() {
-    return `<h1>${this.title}</h1><p>${this.content}</p>`;
+    return `<h1>${this.blogPost.title}</h1><p>${this.blogPost.content}</p>`;
   }
 }
