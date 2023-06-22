@@ -25,6 +25,12 @@ class PayPalProcessor extends PaymentProcessor {
   }
 }
 
+class BitcoinProcessor extends PaymentProcessor {
+  processPayment(amount: number): void {
+    console.log(`Processing Bitcoin Payments - Amount $${amount}`);
+  }
+}
+
 function executePayment(
   paymentProcessor: PaymentProcessor,
   amount: number
