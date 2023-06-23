@@ -1,32 +1,42 @@
-interface IDatabase {
-  save(data: string): void;
+// shapes
+// Area, Perimeter
+// simple - single function calculateTotalArea
+
+// Interface A Shape
+interface Shape {
+  area(): number;
+  perimeter(): number;
 }
 
-class MySqlDatabase implements IDatabase {
-  save(data: string): void {
-    console.log(`${data} is being saved to MySQL`);
+class Circle implements Shape {
+  constructor(private radius: number) {}
+
+  area(): number {
+    return Math.PI * this.radius * this.radius;
+  }
+
+  perimeter(): number {
+    return 2 * Math.PI * this.radius;
   }
 }
 
-class MongoDbDatabase implements IDatabase {
-  save(data: string): void {
-    console.log(`${data} is being saved to MongoDB`);
+class Rectangle implements Shape {
+  constructor(private width: number, private height: number) {}
+
+  area(): number {
+    return this.width * this.height;
+  }
+
+  perimeter(): number {
+    return 2 * (this.width + this.height);
   }
 }
 
-class HighLevelModule {
-  constructor(private database: IDatabase) {}
-
-  execute(data: string) {
-    this.database.save(data);
-  }
+function calculateTotalArea(shape: Shape): number {
+  return shape.area();
 }
 
-let mysql: MySqlDatabase = new MySqlDatabase();
-let mongo: MongoDbDatabase = new MongoDbDatabase();
-
-let user: HighLevelModule = new HighLevelModule(mysql);
-user.execute("John");
-
-let post: HighLevelModule = new HighLevelModule(mongo);
-post.execute("New Post");
+let circle: Circle = new Circle(5);
+let rectangle: Rectangle = new Rectangle(4, 6);
+console.log("Area Of Circle: ", calculateTotalArea(circle));
+console.log("Area Of Reactangle: ", calculateTotalArea(rectangle));
