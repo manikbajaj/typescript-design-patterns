@@ -1,14 +1,45 @@
-// Date Class
-// Get Current Year
-// Get Current Month
-// Get Current Date
+// BankAccount
+// Depositing
+// Withdrawing
+// Balance - hidden - encapsulated
+//bank.balance = 200
 
-const now = new Date();
+class BankAccount {
+  private _balance: number;
 
-const currentYear = now.getFullYear();
-const currentMonth = now.getMonth() + 1;
-const currentDate = now.getDate();
+  constructor(initialbalance: number) {
+    this._balance = initialbalance;
+  }
 
-console.log(currentYear);
-console.log(currentMonth);
-console.log(currentDate);
+  // Getter to get balance of the bank account
+  public get balance(): number {
+    return this._balance;
+  }
+
+  // Method Deposit Money
+  public deposit(amount: number): void {
+    if (amount < 0) {
+      console.log("Invalid deposit Amount");
+      return;
+    }
+    this._balance += amount;
+  }
+  // Method to withdraw money
+  public withdraw(amount: number): void {
+    if (amount < 0) {
+      console.log("Invalid withdrawal amount");
+      return;
+    }
+    if (this._balance - amount < 0) {
+      console.log("Insufficient Funds");
+      return;
+    }
+
+    this._balance -= amount;
+  }
+}
+
+const myAccount = new BankAccount(1000);
+myAccount.deposit(500);
+myAccount.withdraw(200);
+console.log("Current balance: ", myAccount.balance);
