@@ -1,45 +1,39 @@
-// BankAccount
-// Depositing
-// Withdrawing
-// Balance - hidden - encapsulated
-//bank.balance = 200
+// Subtype Polymorphism
+// Interface A Shape
+interface Shape {
+  area(): number;
+  perimeter(): number;
+}
 
-class BankAccount {
-  private _balance: number;
+class Circle implements Shape {
+  constructor(private radius: number) {}
 
-  constructor(initialbalance: number) {
-    this._balance = initialbalance;
+  area(): number {
+    return Math.PI * this.radius * this.radius;
   }
 
-  // Getter to get balance of the bank account
-  public get balance(): number {
-    return this._balance;
-  }
-
-  // Method Deposit Money
-  public deposit(amount: number): void {
-    if (amount < 0) {
-      console.log("Invalid deposit Amount");
-      return;
-    }
-    this._balance += amount;
-  }
-  // Method to withdraw money
-  public withdraw(amount: number): void {
-    if (amount < 0) {
-      console.log("Invalid withdrawal amount");
-      return;
-    }
-    if (this._balance - amount < 0) {
-      console.log("Insufficient Funds");
-      return;
-    }
-
-    this._balance -= amount;
+  perimeter(): number {
+    return 2 * Math.PI * this.radius;
   }
 }
 
-const myAccount = new BankAccount(1000);
-myAccount.deposit(500);
-myAccount.withdraw(200);
-console.log("Current balance: ", myAccount.balance);
+class Rectangle implements Shape {
+  constructor(private width: number, private height: number) {}
+
+  area(): number {
+    return this.width * this.height;
+  }
+
+  perimeter(): number {
+    return 2 * (this.width + this.height);
+  }
+}
+
+function calculateTotalArea(shape: Shape): number {
+  return shape.area();
+}
+
+let circle: Circle = new Circle(5);
+let rectangle: Rectangle = new Rectangle(4, 6);
+console.log("Area Of Circle: ", calculateTotalArea(circle));
+console.log("Area Of Reactangle: ", calculateTotalArea(rectangle));
