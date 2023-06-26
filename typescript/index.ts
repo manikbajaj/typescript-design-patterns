@@ -1,28 +1,28 @@
-class Singleton {
-  private static intance: Singleton;
-  private static _value: number;
+// Singleton Logger Class
+// log method
+// Can have multiple methods
+
+class Logger {
+  private static intance: Logger;
 
   private constructor() {}
 
-  public static getInstance(): Singleton {
-    if (!Singleton.intance) {
-      Singleton.intance = new Singleton();
+  public static getInstance(): Logger {
+    if (!Logger.intance) {
+      Logger.intance = new Logger();
     }
-    return Singleton.intance;
+    return Logger.intance;
   }
 
-  set value(value: number) {
-    Singleton._value = value;
-  }
-
-  get value() {
-    return Singleton._value;
+  public log(message: string): void {
+    const timestamp = new Date();
+    console.log(`[ ${timestamp.toLocaleString()}] - ${message}`);
   }
 }
 
-let instance1 = Singleton.getInstance();
-let instance2 = Singleton.getInstance();
-instance1.value = 10;
-console.log(instance1.value);
-console.log(instance2.value);
-console.log(instance1 === instance2);
+// New Intance
+let logger1 = Logger.getInstance();
+logger1.log("This is the first message");
+
+let logger2 = Logger.getInstance();
+logger2.log("This is the message two");
