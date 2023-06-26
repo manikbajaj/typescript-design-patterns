@@ -1,59 +1,28 @@
-class Product {
-  constructor(
-    public id: string,
-    public price: number,
-    public description: string
-  ) {}
+class Singleton {
+  private static intance: Singleton;
+  private static _value: number;
 
-  display(): void {
-    console.log(
-      `ID: ${this.id}, Price: ${this.price}, Description: ${this.description} `
-    );
+  private constructor() {}
+
+  public static getInstance(): Singleton {
+    if (!Singleton.intance) {
+      Singleton.intance = new Singleton();
+    }
+    return Singleton.intance;
+  }
+
+  set value(value: number) {
+    Singleton._value = value;
+  }
+
+  get value() {
+    return Singleton._value;
   }
 }
 
-class Book extends Product {
-  constructor(
-    public id: string,
-    public price: number,
-    public description: string,
-    public title: string,
-    public author: string
-  ) {
-    super(id, price, description);
-  }
-
-  display(): void {
-    super.display();
-    console.log(`Author: ${this.author}, Title: ${this.title}`);
-  }
-}
-
-class Electronic extends Product {
-  constructor(
-    public id: string,
-    public price: number,
-    public description: string,
-    public brand: string,
-    public model: string
-  ) {
-    super(id, price, description);
-  }
-
-  display(): void {
-    super.display();
-    console.log(`Brand: ${this.brand}, Model: ${this.model}`);
-  }
-}
-
-let book = new Book("1", 19.99, "A good book", "John Doe", "John Doe's Book");
-book.display();
-
-let laptop = new Electronic(
-  "2",
-  2999,
-  "This is a good Laptop",
-  "Dell",
-  "XPS 15"
-);
-laptop.display();
+let instance1 = Singleton.getInstance();
+let instance2 = Singleton.getInstance();
+instance1.value = 10;
+console.log(instance1.value);
+console.log(instance2.value);
+console.log(instance1 === instance2);
