@@ -20,9 +20,15 @@ class Logger {
   }
 }
 
-// New Intance
-let logger1 = Logger.getInstance();
-logger1.log("This is the first message");
+class Application {
+  constructor(private logger: Logger) {}
 
-let logger2 = Logger.getInstance();
-logger2.log("This is the message two");
+  run(): void {
+    this.logger.log("Application is running");
+    this.logger.log("Application is shutting down");
+  }
+}
+
+let logger = Logger.getInstance();
+let app = new Application(logger);
+app.run();
