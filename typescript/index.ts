@@ -1,3 +1,21 @@
+let original = {
+  name: "John",
+  address: {
+    street: "123 Main St",
+    city: "New York",
+  },
+};
+
+let shallowCopy = { ...original };
+shallowCopy.address.city = "Los Angeles";
+console.log(shallowCopy.address.city);
+console.log(original.address.city);
+
+let deepCopy = JSON.parse(JSON.stringify(original));
+deepCopy.address.city = "San Francisco";
+console.log(deepCopy.address.city);
+console.log(original.address.city);
+
 interface ShapeProperties {
   color: string;
   x: number;
