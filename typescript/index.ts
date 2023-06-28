@@ -1,38 +1,62 @@
-interface UserDetails {
-  name: string;
-  age: number;
-  email: string;
+interface ShapeProperties {
+  color: string;
+  x: number;
+  y: number;
 }
 
-interface Prototype {
-  clone(): Prototype;
-  getUserDetails(): UserDetails;
+abstract class Shape {
+  constructor(public properties: ShapeProperties) {}
+  abstract clone(): Shape;
 }
 
-class ConcretePrototype implements Prototype {
-  constructor(private user: UserDetails) {}
-
-  public clone(): Prototype {
-    const clone = Object.create(this);
-    clone.user = { ...this.user };
-    return clone;
+class Reactangle extends Shape {
+  constructor(
+    properties: ShapeProperties,
+    public width: number,
+    public height: number
+  ) {
+    super(properties);
   }
 
-  public getUserDetails(): UserDetails {
-    return this.user;
+  public clone(): Shape {
+    let clonedProperties: ShapeProperties = {
+      color: this.properties.color,
+      x: this.properties.x,
+      y: this.properties.y,
+    };
+
+    return new Reactangle(clonedProperties, this.width, this.height);
   }
 }
 
-let user1 = new ConcretePrototype({
-  name: "John",
-  age: 32,
-  email: "john@example.com",
-});
+class Circle extends Shape {
+  constructor(properties: ShapeProperties, public radius: number) {
+    super(properties);
+  }
 
-let user2 = user1.clone();
+  public clone(): Shape {
+    let clonedProperties: ShapeProperties = {
+      color: this.properties.color,
+      x: this.properties.x,
+      y: this.properties.y,
+    };
 
-if (user1 === user2) {
-  console.log("Both instances are the same");
-} else {
-  console.log("Cloned objects are separate instances");
+    return new Circle(clonedProperties, this.radius);
+  }
 }
+
+let redRectangle: Shape = new Reactangle(
+  {
+    color: "red",
+    x: 20,
+    y: 100,
+  },
+  10,
+  20
+);
+
+let anotherRectangle: Shape = redRectangle.clone();
+anotherRectangle.properties.color = "blue";
+
+console.log(redRectangle);
+console.log(anotherRectangle);
