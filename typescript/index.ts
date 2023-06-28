@@ -1,34 +1,38 @@
-// Singleton Logger Class
-// log method
-// Can have multiple methods
+interface UserDetails {
+  name: string;
+  age: number;
+  email: string;
+}
 
-class Logger {
-  private static intance: Logger;
+interface Prototype {
+  clone(): Prototype;
+  getUserDetails(): UserDetails;
+}
 
-  private constructor() {}
+class ConcretePrototype implements Prototype {
+  constructor(private user: UserDetails) {}
 
-  public static getInstance(): Logger {
-    if (!Logger.intance) {
-      Logger.intance = new Logger();
-    }
-    return Logger.intance;
+  public clone(): Prototype {
+    const clone = Object.create(this);
+    clone.user = { ...this.user };
+    return clone;
   }
 
-  public log(message: string): void {
-    const timestamp = new Date();
-    console.log(`[ ${timestamp.toLocaleString()}] - ${message}`);
+  public getUserDetails(): UserDetails {
+    return this.user;
   }
 }
 
-class Application {
-  constructor(private logger: Logger) {}
+let user1 = new ConcretePrototype({
+  name: "John",
+  age: 32,
+  email: "john@example.com",
+});
 
-  run(): void {
-    this.logger.log("Application is running");
-    this.logger.log("Application is shutting down");
-  }
+let user2 = user1.clone();
+
+if (user1 === user2) {
+  console.log("Both instances are the same");
+} else {
+  console.log("Cloned objects are separate instances");
 }
-
-let logger = Logger.getInstance();
-let app = new Application(logger);
-app.run();
