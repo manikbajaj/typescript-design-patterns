@@ -1,85 +1,59 @@
-interface ICustomer {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phoneNumber: string;
+abstract class Car {
+  constructor(public model: string, public productionYear: number) {}
+
+  abstract displyCarInfo(): void;
 }
 
-interface ICustomerBuilder {
-  setFirstName(firstName: string): ICustomerBuilder;
-  setLastName(lastName: string): ICustomerBuilder;
-  setEmail(email: string): ICustomerBuilder;
-  setPhoneNumber(firstName: string): ICustomerBuilder;
-  build(): ICustomer;
-}
-
-class Customer implements ICustomer {
-  constructor(
-    public firstName: string,
-    public lastName: string,
-    public email: string,
-    public phoneNumber: string
-  ) {}
-}
-
-class CustomerBuilder implements ICustomerBuilder {
-  private firstName: string = "";
-  private lastName: string = "";
-  private email: string = "";
-  private phoneNumber: string = "";
-
-  public setFirstName(firstName: string): ICustomerBuilder {
-    this.firstName = firstName;
-    return this;
-  }
-
-  public setLastName(lastName: string): ICustomerBuilder {
-    this.lastName = lastName;
-    return this;
-  }
-
-  public setEmail(email: string): ICustomerBuilder {
-    this.email = email;
-    return this;
-  }
-
-  public setPhoneNumber(phoneNumber: string): ICustomerBuilder {
-    this.phoneNumber = phoneNumber;
-    return this;
-  }
-
-  public build(): ICustomer {
-    return new Customer(
-      this.firstName,
-      this.lastName,
-      this.email,
-      this.phoneNumber
+class Sedan extends Car {
+  public displyCarInfo(): void {
+    console.log(
+      `This is a Sedan. Model: ${this.model}, Production Year: ${this.productionYear}`
     );
   }
 }
 
-class CustomerDirector {
-  constructor(private builder: ICustomerBuilder) {}
-
-  public buildMinimalCustomer(
-    firstName: string,
-    lastName: string,
-    email: string
-  ) {
-    return this.builder
-      .setFirstName(firstName)
-      .setLastName(lastName)
-      .setEmail(email)
-      .build();
+class SUV extends Car {
+  public displyCarInfo(): void {
+    console.log(
+      `This is a SUV. Model: ${this.model}, Production Year: ${this.productionYear}`
+    );
   }
 }
 
-const builder: ICustomerBuilder = new CustomerBuilder();
-const director: CustomerDirector = new CustomerDirector(builder);
-const customer: ICustomer = director.buildMinimalCustomer(
-  "John",
-  "Doe",
-  "john.doe@example.com"
-);
+class Hatchback extends Car {
+  public displyCarInfo(): void {
+    console.log(
+      `This is a Hatchback. Model: ${this.model}, Production Year: ${this.productionYear}`
+    );
+  }
+}
 
-console.log(customer);
+class CarFactory {
+  public createcar(
+    type: "sedan" | "suv" | "hatchback",
+    model: string,
+    productionYear: number
+  ): Car {
+    switch (type) {
+      case "sedan":
+        return new Sedan(model, productionYear);
+      case "suv":
+        return new SUV(model, productionYear);
+      case "hatchback":
+        return new Hatchback(model, productionYear);
+      default:
+        throw new Error("Invalid car type");
+    }
+  }
+}
+
+const carFactory = new CarFactory();
+
+const sedan = carFactory.createcar("sedan", "Camry", 2023);
+sedan.displyCarInfo();
+
+const suv = carFactory.createcar("suv", "RAV4", 2023);
+suv.displyCarInfo();
+
+const hatchback = carFactory.createcar("hatchback", "Corolla", 2023);
+hatchback.displyCarInfo();
