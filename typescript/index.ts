@@ -1,80 +1,77 @@
-let original = {
-  name: "John",
-  address: {
-    street: "123 Main St",
-    city: "New York",
-  },
-};
-
-let shallowCopy = { ...original };
-shallowCopy.address.city = "Los Angeles";
-console.log(shallowCopy.address.city);
-console.log(original.address.city);
-
-let deepCopy = JSON.parse(JSON.stringify(original));
-deepCopy.address.city = "San Francisco";
-console.log(deepCopy.address.city);
-console.log(original.address.city);
-
-interface ShapeProperties {
-  color: string;
-  x: number;
-  y: number;
+interface Builder {
+  setPartA(): void;
+  setPartB(): void;
+  setPartC(): void;
 }
 
-abstract class Shape {
-  constructor(public properties: ShapeProperties) {}
-  abstract clone(): Shape;
-}
+class Product {
+  private parts: string[] = [];
 
-class Reactangle extends Shape {
-  constructor(
-    properties: ShapeProperties,
-    public width: number,
-    public height: number
-  ) {
-    super(properties);
+  public add(part: string): void {
+    this.parts.push(part);
   }
 
-  public clone(): Shape {
-    let clonedProperties: ShapeProperties = {
-      color: this.properties.color,
-      x: this.properties.x,
-      y: this.properties.y,
-    };
-
-    return new Reactangle(clonedProperties, this.width, this.height);
+  public listParts(): void {
+    console.log(`Product Parts: ${this.parts.join(", ")}`);
   }
 }
 
-class Circle extends Shape {
-  constructor(properties: ShapeProperties, public radius: number) {
-    super(properties);
+class ConcreteBuilder implements Builder {
+  private product!: Product;
+
+  constructor() {
+    this.reset();
   }
 
-  public clone(): Shape {
-    let clonedProperties: ShapeProperties = {
-      color: this.properties.color,
-      x: this.properties.x,
-      y: this.properties.y,
-    };
+  public reset(): void {
+    this.product = new Product();
+  }
 
-    return new Circle(clonedProperties, this.radius);
+  public setPartA(): void {
+    this.product.add("PartA");
+  }
+
+  public setPartB(): void {
+    this.product.add("PartB");
+  }
+
+  public setPartC(): void {
+    this.product.add("PartC");
+  }
+
+  public getProduct(): Product {
+    const result = this.product;
+    this.reset();
+    return result;
   }
 }
 
-let redRectangle: Shape = new Reactangle(
-  {
-    color: "red",
-    x: 20,
-    y: 100,
-  },
-  10,
-  20
-);
+class Director {
+  private builder!: Builder;
 
-let anotherRectangle: Shape = redRectangle.clone();
-anotherRectangle.properties.color = "blue";
+  public setBuilder(builder: Builder): void {
+    this.builder = builder;
+  }
 
-console.log(redRectangle);
-console.log(anotherRectangle);
+  public buildMinimumProduct(): void {
+    this.builder.setPartA();
+  }
+
+  public buildFullProduct(): void {
+    this.builder.setPartA();
+    this.builder.setPartB();
+    this.builder.setPartC();
+  }
+}
+
+const builder = new ConcreteBuilder();
+const director = new Director();
+director.setBuilder(builder);
+
+director.buildMinimumProduct();
+let minProduct = builder.getProduct();
+console.log(minProduct);
+
+director.buildFullProduct();
+let fullProduct = builder.getProduct();
+console.log(fullProduct);
