@@ -1,44 +1,50 @@
-abstract class PaymentProcessor {
-  constructor(public amount: number) {}
-
-  abstract processPayment(): void;
+interface IProductA {
+  operationA(): string;
 }
 
-class PaypalProcessor extends PaymentProcessor {
-  public processPayment(): void {
-    console.log(`Process Paypal Payment: ${this.amount} `);
+interface IProductB {
+  operationB(): string;
+  combinedOperation(collaborator: IProductA): string;
+}
+
+interface IFactory {
+  createProductA(): IProductA;
+  createProductB(): IProductB;
+}
+
+class ProductA implements IProductA {
+  public operationA(): string {
+    return "This is the result of Operation A";
   }
 }
 
-class StripeProcessor extends PaymentProcessor {
-  public processPayment(): void {
-    console.log(`Process Stripe Payment: ${this.amount} `);
+class ProductB implements IProductB {
+  public operationB(): string {
+    return "This is the result of Operation B";
+  }
+
+  public combinedOperation(collaborator: IProductA): string {
+    const result = collaborator.operationA();
+    return `The result of Product B Collobrating with (${result})`;
   }
 }
 
-class BankTransferProcessor extends PaymentProcessor {
-  public processPayment(): void {
-    console.log(`Process Bank Transfer: ${this.amount} `);
+class Factory implements IFactory {
+  public createProductA(): IProductA {
+    return new ProductA();
+  }
+
+  public createProductB(): IProductB {
+    return new ProductB();
   }
 }
 
-class PaymentProcessorFactory {
-  public createProcessor(type: "paypal" | "stripe" | "bank", amount: number) {
-    switch (type) {
-      case "paypal":
-        return new PaypalProcessor(amount);
-      case "stripe":
-        return new StripeProcessor(amount);
-      case "bank":
-        return new BankTransferProcessor(amount);
-    }
-  }
-}
+//  Client Code
+const factory = new Factory();
 
-const processorFactory = new PaymentProcessorFactory();
+const productA = factory.createProductA();
+console.log(productA.operationA());
 
-const paypalPayment = processorFactory.createProcessor("paypal", 200);
-const stripPayment = processorFactory.createProcessor("stripe", 500);
-
-paypalPayment.processPayment();
-stripPayment.processPayment();
+const productB = factory.createProductB();
+console.log(productB.combinedOperation(productA));
+console.log(productB.operationB());
