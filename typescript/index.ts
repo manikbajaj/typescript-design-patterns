@@ -1,59 +1,44 @@
-abstract class Car {
-  constructor(public model: string, public productionYear: number) {}
+abstract class PaymentProcessor {
+  constructor(public amount: number) {}
 
-  abstract displyCarInfo(): void;
+  abstract processPayment(): void;
 }
 
-class Sedan extends Car {
-  public displyCarInfo(): void {
-    console.log(
-      `This is a Sedan. Model: ${this.model}, Production Year: ${this.productionYear}`
-    );
+class PaypalProcessor extends PaymentProcessor {
+  public processPayment(): void {
+    console.log(`Process Paypal Payment: ${this.amount} `);
   }
 }
 
-class SUV extends Car {
-  public displyCarInfo(): void {
-    console.log(
-      `This is a SUV. Model: ${this.model}, Production Year: ${this.productionYear}`
-    );
+class StripeProcessor extends PaymentProcessor {
+  public processPayment(): void {
+    console.log(`Process Stripe Payment: ${this.amount} `);
   }
 }
 
-class Hatchback extends Car {
-  public displyCarInfo(): void {
-    console.log(
-      `This is a Hatchback. Model: ${this.model}, Production Year: ${this.productionYear}`
-    );
+class BankTransferProcessor extends PaymentProcessor {
+  public processPayment(): void {
+    console.log(`Process Bank Transfer: ${this.amount} `);
   }
 }
 
-class CarFactory {
-  public createcar(
-    type: "sedan" | "suv" | "hatchback",
-    model: string,
-    productionYear: number
-  ): Car {
+class PaymentProcessorFactory {
+  public createProcessor(type: "paypal" | "stripe" | "bank", amount: number) {
     switch (type) {
-      case "sedan":
-        return new Sedan(model, productionYear);
-      case "suv":
-        return new SUV(model, productionYear);
-      case "hatchback":
-        return new Hatchback(model, productionYear);
-      default:
-        throw new Error("Invalid car type");
+      case "paypal":
+        return new PaypalProcessor(amount);
+      case "stripe":
+        return new StripeProcessor(amount);
+      case "bank":
+        return new BankTransferProcessor(amount);
     }
   }
 }
 
-const carFactory = new CarFactory();
+const processorFactory = new PaymentProcessorFactory();
 
-const sedan = carFactory.createcar("sedan", "Camry", 2023);
-sedan.displyCarInfo();
+const paypalPayment = processorFactory.createProcessor("paypal", 200);
+const stripPayment = processorFactory.createProcessor("stripe", 500);
 
-const suv = carFactory.createcar("suv", "RAV4", 2023);
-suv.displyCarInfo();
-
-const hatchback = carFactory.createcar("hatchback", "Corolla", 2023);
-hatchback.displyCarInfo();
+paypalPayment.processPayment();
+stripPayment.processPayment();
