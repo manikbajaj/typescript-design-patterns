@@ -1,54 +1,89 @@
-interface Database {
-  connect(): void;
-  query(query: string): void;
-  close(): void;
+interface Employee {
+  getname(): string;
+  getSalary(): number;
+  getRole(): string;
 }
 
-class PostgreSQLDatabase implements Database {
-  public connect(): void {
-    console.log("Connecting to PostgreSql");
-  }
-  public query(query: string): void {
-    console.log(`Executing query: ${query}`);
-    // detailed implementation
+class Developer implements Employee {
+  constructor(private name: string, private salary: number) {}
+  public getname(): string {
+    return this.name;
   }
 
-  public close(): void {
-    console.log("Closing connection PostgreSQL");
-  }
-}
-
-class MongoDBDatabase implements Database {
-  public connect(): void {
-    console.log("Connecting to MongoDB");
-  }
-  public query(query: string): void {
-    console.log(`Executing query: ${query}`);
-    // detailed implementation
+  public getSalary(): number {
+    return this.salary;
   }
 
-  public close(): void {
-    console.log("Closing connection MongoDB");
+  public getRole(): string {
+    return "Developer";
   }
 }
 
-abstract class DatabaseService {
-  constructor(protected database: Database) {}
+class Designer implements Employee {
+  constructor(private name: string, private salary: number) {}
+  public getname(): string {
+    return this.name;
+  }
 
-  abstract fetchData(query: string): void;
+  public getSalary(): number {
+    return this.salary;
+  }
+
+  public getRole(): string {
+    return "Designer";
+  }
 }
 
-class ClientDatabaseService extends DatabaseService {
-  public fetchData(query: string): void {
-    this.database.connect();
-    this.database.query(query);
-    this.database.close();
+// Composite
+interface CompositeEmployee extends Employee {
+  addEmployee(employee: Employee): void;
+  removeEmployee(employee: Employee): void;
+  getEmployees(): Employee[];
+}
+
+class Manager implements CompositeEmployee {
+  private employees: Employee[] = [];
+  constructor(private name: string, private salary: number) {}
+
+  public getname(): string {
+    return this.name;
+  }
+
+  public getSalary(): number {
+    return this.salary;
+  }
+
+  public getRole(): string {
+    return "Manager";
+  }
+
+  public addEmployee(employee: Employee): void {
+    this.employees.push(employee);
+  }
+
+  public removeEmployee(employee: Employee): void {
+    const index = this.employees.indexOf(employee);
+    if (index !== -1) {
+      this.employees.splice(index, 1);
+    }
+  }
+  public getEmployees(): Employee[] {
+    return this.employees;
   }
 }
 
 // Client Code
-let postgreService = new ClientDatabaseService(new PostgreSQLDatabase());
-postgreService.fetchData("USERS");
+let dev1 = new Developer("John Doe", 12000);
+let dev2 = new Developer("Jane Doe", 15000);
+let designer = new Designer("Mark", 10000);
 
-let mongoDbService = new ClientDatabaseService(new MongoDBDatabase());
-mongoDbService.fetchData("USERS");
+let manager = new Manager("Michael", 25000);
+manager.addEmployee(dev1);
+manager.addEmployee(dev2);
+manager.addEmployee(designer);
+
+console.log(manager);
+console.log(manager.getRole());
+console.log(manager.getSalary());
+console.log(manager.getEmployees()[1].getname());
+console.log(manager.getEmployees()[1].getSalary());
