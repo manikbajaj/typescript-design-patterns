@@ -1,89 +1,74 @@
-interface Employee {
-  getname(): string;
-  getSalary(): number;
-  getRole(): string;
+interface FileSystemComponent {
+  getName(): string;
+  getSize(): number;
 }
 
-class Developer implements Employee {
-  constructor(private name: string, private salary: number) {}
-  public getname(): string {
+class FileComponent implements FileSystemComponent {
+  constructor(private name: string, private size: number) {}
+
+  public getName(): string {
     return this.name;
   }
 
-  public getSalary(): number {
-    return this.salary;
-  }
-
-  public getRole(): string {
-    return "Developer";
+  public getSize(): number {
+    return this.size;
   }
 }
 
-class Designer implements Employee {
-  constructor(private name: string, private salary: number) {}
-  public getname(): string {
+interface CompositeFileSystemComponent extends FileSystemComponent {
+  addComponent(component: FileSystemComponent): void;
+  removeComponent(component: FileSystemComponent): void;
+  getComponents(): FileSystemComponent[];
+}
+
+class Folder implements CompositeFileSystemComponent {
+  private components: FileSystemComponent[] = [];
+  constructor(private name: string) {}
+
+  public getName(): string {
     return this.name;
   }
 
-  public getSalary(): number {
-    return this.salary;
+  public getSize(): number {
+    return this.components.reduce(
+      (total, component) => total + component.getSize(),
+      0
+    );
   }
 
-  public getRole(): string {
-    return "Designer";
-  }
-}
-
-// Composite
-interface CompositeEmployee extends Employee {
-  addEmployee(employee: Employee): void;
-  removeEmployee(employee: Employee): void;
-  getEmployees(): Employee[];
-}
-
-class Manager implements CompositeEmployee {
-  private employees: Employee[] = [];
-  constructor(private name: string, private salary: number) {}
-
-  public getname(): string {
-    return this.name;
+  public addComponent(component: FileSystemComponent): void {
+    this.components.push(component);
   }
 
-  public getSalary(): number {
-    return this.salary;
-  }
-
-  public getRole(): string {
-    return "Manager";
-  }
-
-  public addEmployee(employee: Employee): void {
-    this.employees.push(employee);
-  }
-
-  public removeEmployee(employee: Employee): void {
-    const index = this.employees.indexOf(employee);
+  public removeComponent(component: FileSystemComponent): void {
+    const index = this.components.indexOf(component);
     if (index !== -1) {
-      this.employees.splice(index, 1);
+      this.components.splice(index, 1);
     }
   }
-  public getEmployees(): Employee[] {
-    return this.employees;
+
+  public getComponents(): FileSystemComponent[] {
+    return this.components;
   }
 }
 
 // Client Code
-let dev1 = new Developer("John Doe", 12000);
-let dev2 = new Developer("Jane Doe", 15000);
-let designer = new Designer("Mark", 10000);
+let file1 = new FileComponent("file1.txt", 500);
+let file2 = new FileComponent("file2.txt", 800);
+let file3 = new FileComponent("file3.txt", 1200);
 
-let manager = new Manager("Michael", 25000);
-manager.addEmployee(dev1);
-manager.addEmployee(dev2);
-manager.addEmployee(designer);
+let folder = new Folder("My Folder");
+folder.addComponent(file1);
+folder.addComponent(file2);
+folder.addComponent(file3);
 
-console.log(manager);
-console.log(manager.getRole());
-console.log(manager.getSalary());
-console.log(manager.getEmployees()[1].getname());
-console.log(manager.getEmployees()[1].getSalary());
+console.log(`Folder ${folder.getName()}  Contains:`);
+folder
+  .getComponents()
+  .map((component) =>
+    console.log(
+      `- ${component.getName()} with the size of ${component.getSize()} bytes`
+    )
+  );
+
+console.log(`Total Size ${folder.getSize()}`);
