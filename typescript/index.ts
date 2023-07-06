@@ -1,49 +1,54 @@
-interface MediaPlayerImplementation {
-  playAudio(): void;
-  playVideo(): void;
+interface Database {
+  connect(): void;
+  query(query: string): void;
+  close(): void;
 }
 
-class WindowsMediaPlayer implements MediaPlayerImplementation {
-  public playAudio(): void {
-    console.log("Playing audio on windows media player");
+class PostgreSQLDatabase implements Database {
+  public connect(): void {
+    console.log("Connecting to PostgreSql");
+  }
+  public query(query: string): void {
+    console.log(`Executing query: ${query}`);
+    // detailed implementation
   }
 
-  public playVideo(): void {
-    console.log("Playing video on windows media player");
-  }
-}
-
-class MacOsMediaPlayer implements MediaPlayerImplementation {
-  public playAudio(): void {
-    console.log("Playing audio on MacOS media player");
-  }
-
-  public playVideo(): void {
-    console.log("Playing video on MacOS media player");
+  public close(): void {
+    console.log("Closing connection PostgreSQL");
   }
 }
 
-abstract class MediaPlayerAbstraction {
-  constructor(protected implementation: MediaPlayerImplementation) {}
+class MongoDBDatabase implements Database {
+  public connect(): void {
+    console.log("Connecting to MongoDB");
+  }
+  public query(query: string): void {
+    console.log(`Executing query: ${query}`);
+    // detailed implementation
+  }
 
-  abstract playFile(): void;
-}
-
-class AudioPlayer extends MediaPlayerAbstraction {
-  public playFile(): void {
-    this.implementation.playAudio();
+  public close(): void {
+    console.log("Closing connection MongoDB");
   }
 }
 
-class VideoPlayer extends MediaPlayerAbstraction {
-  public playFile(): void {
-    this.implementation.playVideo();
+abstract class DatabaseService {
+  constructor(protected database: Database) {}
+
+  abstract fetchData(query: string): void;
+}
+
+class ClientDatabaseService extends DatabaseService {
+  public fetchData(query: string): void {
+    this.database.connect();
+    this.database.query(query);
+    this.database.close();
   }
 }
 
 // Client Code
-let windowsAudioPlayer = new AudioPlayer(new WindowsMediaPlayer());
-windowsAudioPlayer.playFile();
+let postgreService = new ClientDatabaseService(new PostgreSQLDatabase());
+postgreService.fetchData("USERS");
 
-let macOSVideoPlayer = new VideoPlayer(new MacOsMediaPlayer());
-macOSVideoPlayer.playFile();
+let mongoDbService = new ClientDatabaseService(new MongoDBDatabase());
+mongoDbService.fetchData("USERS");
