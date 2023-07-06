@@ -1,70 +1,49 @@
-class Amplifier {
-  public turnOn(): void {
-    console.log("Amplifier is turned On");
+interface MediaPlayerImplementation {
+  playAudio(): void;
+  playVideo(): void;
+}
+
+class WindowsMediaPlayer implements MediaPlayerImplementation {
+  public playAudio(): void {
+    console.log("Playing audio on windows media player");
   }
 
-  public setVolume(level: number): void {
-    console.log(`Volume is set to ${level}`);
+  public playVideo(): void {
+    console.log("Playing video on windows media player");
   }
 }
 
-class DvdPlayer {
-  public turnOn(): void {
-    console.log("The DVD Player is tuned on");
+class MacOsMediaPlayer implements MediaPlayerImplementation {
+  public playAudio(): void {
+    console.log("Playing audio on MacOS media player");
   }
 
-  public play(movie: string) {
-    console.log(`Playing ${movie}`);
-  }
-}
-
-class Projector {
-  public turnOn(): void {
-    console.log("Projector is turned on");
-  }
-
-  public setInput(dvdPlayer: DvdPlayer): void {
-    console.log("Input set to DvdPlayer");
+  public playVideo(): void {
+    console.log("Playing video on MacOS media player");
   }
 }
 
-class Lights {
-  public dim(level: number): void {
-    console.log(`Lights dimmed to ${level}`);
+abstract class MediaPlayerAbstraction {
+  constructor(protected implementation: MediaPlayerImplementation) {}
+
+  abstract playFile(): void;
+}
+
+class AudioPlayer extends MediaPlayerAbstraction {
+  public playFile(): void {
+    this.implementation.playAudio();
   }
 }
 
-class HomeTheaterFacade {
-  constructor(
-    private amplifier: Amplifier,
-    private dvdPlayer: DvdPlayer,
-    private projector: Projector,
-    private lights: Lights
-  ) {}
-
-  public watchMovie(movie: string, volume: number, level: number) {
-    console.log(`Get Ready To Watch ${movie}`);
-    this.lights.dim(level);
-    this.amplifier.turnOn();
-    this.amplifier.setVolume(volume);
-    this.dvdPlayer.turnOn();
-    this.projector.turnOn();
-    this.projector.setInput(this.dvdPlayer);
-    this.dvdPlayer.play(movie);
+class VideoPlayer extends MediaPlayerAbstraction {
+  public playFile(): void {
+    this.implementation.playVideo();
   }
 }
 
 // Client Code
-let amplifier = new Amplifier();
-let dvdPlayer = new DvdPlayer();
-let projector = new Projector();
-let lights = new Lights();
+let windowsAudioPlayer = new AudioPlayer(new WindowsMediaPlayer());
+windowsAudioPlayer.playFile();
 
-let homeTheater = new HomeTheaterFacade(
-  amplifier,
-  dvdPlayer,
-  projector,
-  lights
-);
-
-homeTheater.watchMovie("Inception", 10, 5);
+let macOSVideoPlayer = new VideoPlayer(new MacOsMediaPlayer());
+macOSVideoPlayer.playFile();
