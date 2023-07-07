@@ -1,41 +1,45 @@
-interface Coffee {
-  cost(): number;
-  description(): string;
+interface ServerRequest {
+  handle(request: any): void;
 }
 
-class SimpleCoffee implements Coffee {
-  public cost(): number {
-    return 10;
-  }
-
-  public description(): string {
-    return "Simple Coffee";
+class BaseServer implements ServerRequest {
+  public handle(request: any): void {
+    console.log("Handling Request: ", request);
   }
 }
 
-abstract class CoffeeDecorator implements Coffee {
-  constructor(protected coffee: Coffee) {}
+abstract class ServerRequestDecorator implements ServerRequest {
+  constructor(protected serverRequest: ServerRequest) {}
 
-  abstract cost(): number;
-  abstract description(): string;
+  abstract handle(request: any): void;
 }
 
-class MilkDecorator extends CoffeeDecorator {
-  constructor(coffee: Coffee) {
-    super(coffee);
-  }
-  public cost(): number {
-    return this.coffee.cost() + 2;
-  }
-
-  public description(): string {
-    return `${this.coffee.description()}, with milk`;
+class LoggingMiddleware extends ServerRequestDecorator {
+  public handle(request: any): void {
+    console.log("Logging Request: ", request);
+    this.serverRequest.handle(request);
   }
 }
 
-// client code
-let coffee: Coffee = new SimpleCoffee();
-coffee = new MilkDecorator(coffee);
+class AuthMiddleware extends ServerRequestDecorator {
+  public handle(request: any): void {
+    if (request.isAuthenticated) {
+      console.log("Request is authenticated");
+      this.serverRequest.handle(request);
+    } else {
+      console.log("unAuthorised Access");
+    }
+  }
+}
 
-console.log(`Cost: ${coffee.cost()}`);
-console.log(`Description: ${coffee.description()}`);
+// Client Code
+
+const request = {
+  isAuthenticated: false,
+  body: "hello world",
+};
+
+let server: ServerRequest = new BaseServer();
+server = new LoggingMiddleware(server);
+server = new AuthMiddleware(server);
+server.handle(request);
