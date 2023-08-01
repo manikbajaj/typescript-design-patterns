@@ -1,52 +1,37 @@
-class Rectangle {
-  constructor(private width: number, private height: number) {}
-
-  public getWidth(): number {
-    return this.width;
+class MySQLDatabase {
+  public connectToMySQL(uri: string): void {
+    console.log(`Connecting to MySQL at ${uri}`);
+    // implementation
   }
 
-  public getHeight(): number {
-    return this.height;
-  }
-
-  public area(): number {
-    return this.width * this.height;
+  public executeMySQLQuery(query: string): void {
+    console.log(`Executing MySQL Query ${query}`);
   }
 }
 
-class Square {
-  constructor(private side: number) {}
-
-  public getSide(): number {
-    return this.side;
+class PostgreSQLDatabase {
+  public connectToPostgreSQL(uri: string): void {
+    console.log(`Connecting to PostgreSQL ${uri}`);
   }
 
-  public area(): number {
-    return this.side * this.side;
+  public executePostgreSQLQuery(query: string): void {
+    console.log(`Excuting PostgreSQL query ${query}`);
   }
 }
 
-class SquareToRectangleAdapter {
-  constructor(private square: Square) {}
+class DatabaseAdapter {
+  constructor(private postgreSQl: PostgreSQLDatabase) {}
 
-  public getWidth(): number {
-    return this.square.getSide();
+  public connectToMySQL(uri: string): void {
+    this.postgreSQl.connectToPostgreSQL(uri);
   }
 
-  public getHeight(): number {
-    return this.square.getSide();
-  }
-
-  public area(): number {
-    return this.square.area();
+  public executeMySQLQuery(query: string): void {
+    this.postgreSQl.executePostgreSQLQuery(query);
   }
 }
 
-// client code
-let square = new Square(5);
-let adapter = new SquareToRectangleAdapter(square);
-
-console.log(adapter.getHeight());
-console.log(adapter.getWidth());
-console.log(adapter.area());
-console.log(adapter);
+// Client Code
+let database = new DatabaseAdapter(new PostgreSQLDatabase());
+database.connectToMySQL("mysql://localhost:3306/mydb");
+database.executeMySQLQuery("SELECT * FROM * users");
