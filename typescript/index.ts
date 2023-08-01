@@ -33,5 +33,5 @@ class DatabaseAdapter {
 
 // Client Code
 let database = new DatabaseAdapter(new PostgreSQLDatabase());
-database.connectToMySQL("mysql://localhost:3306/mydb");
+database.connectToMySQL("postgresql://localhost:5432/mydb");
 database.executeMySQLQuery("SELECT * FROM * users");
