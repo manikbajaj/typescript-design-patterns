@@ -1,45 +1,52 @@
-interface ServerRequest {
-  handle(request: any): void;
-}
+class Rectangle {
+  constructor(private width: number, private height: number) {}
 
-class BaseServer implements ServerRequest {
-  public handle(request: any): void {
-    console.log("Handling Request: ", request);
+  public getWidth(): number {
+    return this.width;
+  }
+
+  public getHeight(): number {
+    return this.height;
+  }
+
+  public area(): number {
+    return this.width * this.height;
   }
 }
 
-abstract class ServerRequestDecorator implements ServerRequest {
-  constructor(protected serverRequest: ServerRequest) {}
+class Square {
+  constructor(private side: number) {}
 
-  abstract handle(request: any): void;
-}
+  public getSide(): number {
+    return this.side;
+  }
 
-class LoggingMiddleware extends ServerRequestDecorator {
-  public handle(request: any): void {
-    console.log("Logging Request: ", request);
-    this.serverRequest.handle(request);
+  public area(): number {
+    return this.side * this.side;
   }
 }
 
-class AuthMiddleware extends ServerRequestDecorator {
-  public handle(request: any): void {
-    if (request.isAuthenticated) {
-      console.log("Request is authenticated");
-      this.serverRequest.handle(request);
-    } else {
-      console.log("unAuthorised Access");
-    }
+class SquareToRectangleAdapter {
+  constructor(private square: Square) {}
+
+  public getWidth(): number {
+    return this.square.getSide();
+  }
+
+  public getHeight(): number {
+    return this.square.getSide();
+  }
+
+  public area(): number {
+    return this.square.area();
   }
 }
 
-// Client Code
+// client code
+let square = new Square(5);
+let adapter = new SquareToRectangleAdapter(square);
 
-const request = {
-  isAuthenticated: false,
-  body: "hello world",
-};
-
-let server: ServerRequest = new BaseServer();
-server = new LoggingMiddleware(server);
-server = new AuthMiddleware(server);
-server.handle(request);
+console.log(adapter.getHeight());
+console.log(adapter.getWidth());
+console.log(adapter.area());
+console.log(adapter);
