@@ -1,5 +1,6 @@
 interface ServerRequest {
   handle(request: any): void;
+  // cancel(request: any): void;
 }
 
 class BaseServer implements ServerRequest {
