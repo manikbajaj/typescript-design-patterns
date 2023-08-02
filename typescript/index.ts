@@ -1,37 +1,69 @@
-class MySQLDatabase {
-  public connectToMySQL(uri: string): void {
-    console.log(`Connecting to MySQL at ${uri}`);
-    // implementation
-  }
+interface Observer {
+  update(subject: Subject): void;
+}
 
-  public executeMySQLQuery(query: string): void {
-    console.log(`Executing MySQL Query ${query}`);
+class ConcreteObserever implements Observer {
+  constructor(private id: number) {}
+  public update(subject: Subject): void {
+    console.log(
+      `Observer ${this.id} updated, new state: ${subject.getState()}`
+    );
   }
 }
 
-class PostgreSQLDatabase {
-  public connectToPostgreSQL(uri: string): void {
-    console.log(`Connecting to PostgreSQL ${uri}`);
+interface Subject {
+  addObserver(observer: Observer): void;
+  removeObserver(observer: Observer): void;
+  notifyObservers(): void;
+  getState(): number;
+  setState(state: number): void;
+}
+
+class ConcreteSubject implements Subject {
+  private observers: Observer[] = [];
+  private state: number = 0;
+
+  public addObserver(observer: Observer): void {
+    const isExists = this.observers.includes(observer);
+    if (isExists) {
+      return console.log("Observer already exists");
+    }
+
+    this.observers.push(observer);
+    console.log("Observer Added Successfully");
   }
 
-  public executePostgreSQLQuery(query: string): void {
-    console.log(`Excuting PostgreSQL query ${query}`);
+  public removeObserver(observer: Observer): void {
+    const observerIndex = this.observers.indexOf(observer);
+    if (observerIndex === -1) {
+      return console.log("Observer Does not Exist");
+    }
+    this.observers.splice(observerIndex, 1);
+    console.log("Observer was successfully removed");
+  }
+
+  public notifyObservers(): void {
+    this.observers.forEach((observer) => observer.update(this));
+  }
+
+  public getState(): number {
+    return this.state;
+  }
+
+  public setState(state: number): void {
+    this.state = state;
+    console.log("Setting State ....");
+    this.notifyObservers();
   }
 }
 
-class DatabaseAdapter {
-  constructor(private postgreSQl: PostgreSQLDatabase) {}
+// client code
+const subject = new ConcreteSubject();
 
-  public connectToMySQL(uri: string): void {
-    this.postgreSQl.connectToPostgreSQL(uri);
-  }
+const observer1 = new ConcreteObserever(1);
+subject.addObserver(observer1);
 
-  public executeMySQLQuery(query: string): void {
-    this.postgreSQl.executePostgreSQLQuery(query);
-  }
-}
+const observer2 = new ConcreteObserever(2);
+subject.addObserver(observer2);
 
-// Client Code
-let database = new DatabaseAdapter(new PostgreSQLDatabase());
-database.connectToMySQL("postgresql://localhost:5432/mydb");
-database.executeMySQLQuery("SELECT * FROM * users");
+subject.setState(123);
