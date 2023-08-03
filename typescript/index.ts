@@ -61,6 +61,8 @@ const userCollection = new UserCollection(users);
 
 // create an iterator
 const iterator = userCollection.createIterator();
+const iterator2 = userCollection.createIterator();
 
 console.log(iterator.next());
 console.log(iterator.next());
+console.log(iterator2.next());
