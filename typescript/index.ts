@@ -1,50 +1,40 @@
-interface PaymentStrategy {
-  pay(amount: number): void;
+interface FilterStrategy {
+  apply(image: string): void;
 }
 
-class PaypalStrategy implements PaymentStrategy {
-  public pay(amount: number): void {
-    console.log(`Paid ${amount} using PayPal`);
+class GreyScaleStrategy implements FilterStrategy {
+  public apply(image: string): void {
+    console.log(`Applying greyscale filter to ${image}`);
   }
 }
 
-class CreditCardStrategy implements PaymentStrategy {
-  public pay(amount: number): void {
-    console.log(`Paid ${amount} using credit card`);
+class SepiaStrategy implements FilterStrategy {
+  public apply(image: string): void {
+    console.log(`Applying sepia filter to ${image}`);
   }
 }
 
-class BitcoinStrategy implements PaymentStrategy {
-  public pay(amount: number): void {
-    console.log(`Paid ${amount} using Bitcoin`);
+class NegativeStrategy implements FilterStrategy {
+  public apply(image: string): void {
+    console.log(`Applying negative filter to ${image}`);
   }
 }
 
-class ShoppingCart {
-  private amount: number = 0;
+class ImageProcessor {
+  constructor(private strategy: FilterStrategy) {}
 
-  constructor(private strategy: PaymentStrategy) {}
-
-  public setPaymentStrategy(strategy: PaymentStrategy): void {
+  public setFilterStrategy(strategy: FilterStrategy): void {
     this.strategy = strategy;
   }
 
-  public addToCart(value: number): void {
-    this.amount += value;
-  }
-
-  public checkout(): void {
-    this.strategy.pay(this.amount);
-    this.amount = 0;
+  public applyFilter(image: string): void {
+    this.strategy.apply(image);
   }
 }
 
-// client code
-let cart = new ShoppingCart(new PaypalStrategy());
-cart.addToCart(100);
-cart.addToCart(50);
-cart.checkout();
+// Client Code
+const imageProcessor = new ImageProcessor(new GreyScaleStrategy());
+imageProcessor.applyFilter("Image.jpg");
 
-cart.setPaymentStrategy(new CreditCardStrategy());
-cart.addToCart(100);
-cart.checkout();
+imageProcessor.setFilterStrategy(new SepiaStrategy());
+imageProcessor.applyFilter("Image2.jpg");
