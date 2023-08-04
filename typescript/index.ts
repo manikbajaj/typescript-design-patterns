@@ -1,68 +1,50 @@
-class User {
-  constructor(public name: string) {}
+interface PaymentStrategy {
+  pay(amount: number): void;
 }
 
-interface MyIteratorResult<T> {
-  value: T | null;
-  done: boolean;
-}
-
-interface MyIterator<T> {
-  next(): MyIteratorResult<T>;
-  hastNext(): boolean;
-}
-
-interface Collection<T> {
-  createIterator(): MyIterator<T>;
-}
-
-class UserCollection implements Collection<User> {
-  constructor(private users: User[]) {}
-
-  public createIterator(): MyIterator<User> {
-    return new UserIterator(this);
-  }
-
-  public getItems(): User[] {
-    return this.users;
+class PaypalStrategy implements PaymentStrategy {
+  public pay(amount: number): void {
+    console.log(`Paid ${amount} using PayPal`);
   }
 }
 
-class UserIterator implements MyIterator<User> {
-  private collection: UserCollection;
-  private position: number = 0;
-
-  constructor(collection: UserCollection) {
-    this.collection = collection;
-  }
-
-  public hastNext(): boolean {
-    console.log(this.collection.getItems());
-    return this.position < this.collection.getItems().length;
-  }
-
-  public next(): MyIteratorResult<User> {
-    if (this.hastNext()) {
-      return {
-        value: this.collection.getItems()[this.position++],
-        done: false,
-      };
-    } else {
-      return { value: null, done: true };
-    }
+class CreditCardStrategy implements PaymentStrategy {
+  public pay(amount: number): void {
+    console.log(`Paid ${amount} using credit card`);
   }
 }
 
-// Client Code
-const users = [new User("Alice"), new User("Bob"), new User("Charlie")];
+class BitcoinStrategy implements PaymentStrategy {
+  public pay(amount: number): void {
+    console.log(`Paid ${amount} using Bitcoin`);
+  }
+}
 
-// Convert Array of Users into a collection
-const userCollection = new UserCollection(users);
+class ShoppingCart {
+  private amount: number = 0;
 
-// create an iterator
-const iterator = userCollection.createIterator();
-const iterator2 = userCollection.createIterator();
+  constructor(private strategy: PaymentStrategy) {}
 
-console.log(iterator.next());
-console.log(iterator.next());
-console.log(iterator2.next());
+  public setPaymentStrategy(strategy: PaymentStrategy): void {
+    this.strategy = strategy;
+  }
+
+  public addToCart(value: number): void {
+    this.amount += value;
+  }
+
+  public checkout(): void {
+    this.strategy.pay(this.amount);
+    this.amount = 0;
+  }
+}
+
+// client code
+let cart = new ShoppingCart(new PaypalStrategy());
+cart.addToCart(100);
+cart.addToCart(50);
+cart.checkout();
+
+cart.setPaymentStrategy(new CreditCardStrategy());
+cart.addToCart(100);
+cart.checkout();
