@@ -1,40 +1,54 @@
-interface FilterStrategy {
-  apply(image: string): void;
+abstract class CakeRecipe {
+  public bakeCake(): void {
+    this.preHeatOven();
+    this.mixIngredients();
+    this.bake();
+    this.coolingDown();
+    this.decorate();
+  }
+
+  protected preHeatOven(): void {
+    console.log("Preheating oven to 175 Degree C");
+  }
+
+  protected bake(): void {
+    console.log("Baking cake ....");
+  }
+
+  protected coolingDown(): void {
+    console.log("Cooling down the cake ...");
+  }
+
+  protected decorate(): void {
+    console.log("Decorating cake ...");
+  }
+
+  protected abstract mixIngredients(): void;
 }
 
-class GreyScaleStrategy implements FilterStrategy {
-  public apply(image: string): void {
-    console.log(`Applying greyscale filter to ${image}`);
+class ChocolateCake extends CakeRecipe {
+  protected mixIngredients(): void {
+    console.log("Mixing: chocolate, sugar, butter, flour, eggs");
+  }
+
+  protected decorate(): void {
+    console.log(" Decorating cake with chocolate");
   }
 }
 
-class SepiaStrategy implements FilterStrategy {
-  public apply(image: string): void {
-    console.log(`Applying sepia filter to ${image}`);
+class VanillaCake extends CakeRecipe {
+  protected mixIngredients(): void {
+    console.log("Mixing: vanilla extract, sugar, butter, flour, eggs");
   }
 }
 
-class NegativeStrategy implements FilterStrategy {
-  public apply(image: string): void {
-    console.log(`Applying negative filter to ${image}`);
-  }
+// client code
+function bakecake(cake: CakeRecipe) {
+  cake.bakeCake();
 }
 
-class ImageProcessor {
-  constructor(private strategy: FilterStrategy) {}
+console.log("Baking a chocolate cake");
+bakecake(new ChocolateCake());
 
-  public setFilterStrategy(strategy: FilterStrategy): void {
-    this.strategy = strategy;
-  }
-
-  public applyFilter(image: string): void {
-    this.strategy.apply(image);
-  }
-}
-
-// Client Code
-const imageProcessor = new ImageProcessor(new GreyScaleStrategy());
-imageProcessor.applyFilter("Image.jpg");
-
-imageProcessor.setFilterStrategy(new SepiaStrategy());
-imageProcessor.applyFilter("Image2.jpg");
+console.log("Baking a vanilla cake");
+bakecake(new VanillaCake());
