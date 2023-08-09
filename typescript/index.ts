@@ -1,60 +1,73 @@
-interface Tool {
-  onMouseDown(): void;
-  onMouseUp(): void;
+interface Handler {
+  setNext(handler: Handler): Handler;
+  handle(request: string): string | null;
 }
 
-class SelectionTool implements Tool {
-  public onMouseDown(): void {
-    console.log("Selection started");
-  }
-  public onMouseUp(): void {
-    console.log("Selection drawn");
-  }
-}
+abstract class AbstractHandler implements Handler {
+  private nextHandler: Handler | null = null;
 
-class BrushTool implements Tool {
-  public onMouseDown(): void {
-    console.log("Brush stroke started");
+  public setNext(handler: Handler): Handler {
+    this.nextHandler = handler;
+    // Rerturing a handler
+    // allows conveninent chaining
+    return handler;
   }
-  public onMouseUp(): void {
-    console.log("Brush stroke drawn");
-  }
-}
 
-class EraserTool implements Tool {
-  public onMouseDown(): void {
-    console.log("Eraser started");
-  }
-  public onMouseUp(): void {
-    console.log("Erased");
+  public handle(request: string): string | null {
+    if (this.nextHandler) {
+      return this.nextHandler.handle(request);
+    }
+    return null;
   }
 }
 
-class Canvas {
-  constructor(private tool: Tool) {}
-
-  public setTool(tool: Tool): void {
-    this.tool = tool;
+class MonkeyHandler extends AbstractHandler {
+  public handle(request: string): string | null {
+    if (request === "Banana") {
+      return `Moneky: I'll eat the ${request}`;
+    }
+    return super.handle(request);
   }
+}
 
-  public onMouseDown(): void {
-    this.tool.onMouseDown();
+class SquirrelHandler extends AbstractHandler {
+  public handle(request: string): string | null {
+    if (request === "Nut") {
+      return `Squirrel: I'll eat the ${request}`;
+    }
+    return super.handle(request);
   }
+}
 
-  public onMouseUp(): void {
-    this.tool.onMouseUp();
+class DogHandler extends AbstractHandler {
+  public handle(request: string): string | null {
+    if (request === "MeatBall") {
+      return `Dog: I'll eat the ${request}`;
+    }
+    return super.handle(request);
   }
 }
 
 // client code
-let canvas = new Canvas(new SelectionTool());
-canvas.onMouseDown();
-canvas.onMouseUp();
+function clientCode(handler: Handler) {
+  const foods = ["Nut", "Banana", "Cup Of Coffee", "MeatBall"];
 
-canvas.setTool(new BrushTool());
-canvas.onMouseDown();
-canvas.onMouseUp();
+  for (const food of foods) {
+    console.log(`Who wants to eat ${food}`);
+    const result = handler.handle(food);
+    if (result) {
+      console.log(result);
+    } else {
+      console.log(`${food} was left untouched `);
+    }
+  }
+}
 
-canvas.setTool(new EraserTool());
-canvas.onMouseDown();
-canvas.onMouseUp();
+const monkey = new MonkeyHandler();
+const squirrel = new SquirrelHandler();
+const dog = new DogHandler();
+
+// Chaining handlers
+monkey.setNext(squirrel).setNext(dog);
+
+clientCode(monkey);
