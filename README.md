@@ -12,7 +12,8 @@ on the Gang Of Four Design Patterns and SOLID Design Principles? Do you have a
 grasp of TypeScript and now want to focus on architectural excellence and code
 reusability? If so, you've come to the right place!
 
-> Thsi repository contains all the design patterns which I teach in my Udemy 
+## :sunny: Learn On Udemy 
+> This repository contains all the design patterns which I teach in my Udemy 
 > course. Check out the course on :point_right: [TypeScript Design Patters 
 > and SOLID Principles](#link-here)  
 
