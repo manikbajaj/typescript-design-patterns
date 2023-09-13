@@ -1,10 +1,10 @@
-[//]: # (https://github.com/fefong/markdown_readme#titles)
+[//]: # "https://github.com/fefong/markdown_readme#titles"
 
 # TypeScript Design Patterns And SOLID Principles
 
 Welcome to this one-of-a-kind course specifically designed to transform your
 TypeScript programming skills by diving deep into the world of **Gang Of Four
-Design Patterns**, **SOLID Design principles**, and **Object-Oriented 
+Design Patterns**, **SOLID Design principles**, and **Object-Oriented
 Programming
 (OOP)** concepts. Are you an aspiring or intermediate programmer looking to
 level up your game? Or are you an advanced programmer and need a refresher
@@ -12,12 +12,14 @@ on the Gang Of Four Design Patterns and SOLID Design Principles? Do you have a
 grasp of TypeScript and now want to focus on architectural excellence and code
 reusability? If so, you've come to the right place!
 
-# :sunny: Learn On Udemy 
-> This repository contains all the design patterns which I teach in my Udemy 
-> course. Check out the course on :point_right: [TypeScript Design Patters 
-> and SOLID Principles](#link-here)  
+# :sunny: Learn On Udemy
+
+> This repository contains all the design patterns which I teach in my Udemy
+> course. Check out the course on :point_right: [TypeScript Design Patters
+> and SOLID Principles](https://www.udemy.com/course/design-patterns-using-typescript/)
 
 # Navigate Repository Contents
+
 =============================
 
 - [Intro To Design Patterns](#intro-to-design-patterns)
@@ -30,7 +32,7 @@ reusability? If so, you've come to the right place!
 # Intro To Design Patterns
 
 | Lecture No. | Lecture                                    | Git Branch | Notes                                                                                                                           |
-|:------------|:-------------------------------------------|:-----------|:--------------------------------------------------------------------------------------------------------------------------------|
+| :---------- | :----------------------------------------- | :--------- | :------------------------------------------------------------------------------------------------------------------------------ |
 | 1           | Introduction                               | NA         | NA                                                                                                                              |
 | 2           | How To Make The Most Out Of This Course    | NA         | NA                                                                                                                              |
 | 3           | Intro To Design Patterns and Their History | NA         | [Lecture Notes](https://cloudaffle.com/series/typescript-design-patterns/what-are-design-patterns/)                             |
@@ -44,7 +46,7 @@ reusability? If so, you've come to the right place!
 # Object Oriented Programming
 
 | Lecture No. | Lecture                         | Git Branch                                                                                              | Notes                                                                                                                               |
-|:------------|:--------------------------------|:--------------------------------------------------------------------------------------------------------|:------------------------------------------------------------------------------------------------------------------------------------|
+| :---------- | :------------------------------ | :------------------------------------------------------------------------------------------------------ | :---------------------------------------------------------------------------------------------------------------------------------- |
 | 10          | What is OOP                     | NA                                                                                                      | [Lecture Notes](https://cloudaffle.com/series/object-oriented-typescript/introduction-to-oop/)                                      |
 | 11          | OOP Lingo                       | NA                                                                                                      | [Lecture Notes](https://cloudaffle.com/series/object-oriented-typescript/the-oop-lingo/)                                            |
 | 12          | Abstraction                     | [Code Branch](https://github.com/manikbajaj/typescript-design-patterns/tree/abstraction)                | [Lecture Notes](https://cloudaffle.com/series/object-oriented-typescript/abstraction-in-typescript/)                                |
@@ -55,7 +57,7 @@ reusability? If so, you've come to the right place!
 | 17          | Encapsulation Implementation    | [Code Branch](https://github.com/manikbajaj/typescript-design-patterns/tree/abstraction-implementation) | [Lecture Notes](https://cloudaffle.com/series/object-oriented-typescript/encapsulation-in-typescript/#real-world-example)           |
 | 18          | Encapsulation Advantages        | NA                                                                                                      | [Lecture Notes](https://cloudaffle.com/series/object-oriented-typescript/encapsulation-example-with-nestjs/#why-use-encapsulation)  |
 | 19          | Polymorphism (Subtype)          | [Code Branch](https://github.com/manikbajaj/typescript-design-patterns/tree/polymorphism)               | [Lecture Notes](https://cloudaffle.com/series/object-oriented-typescript/polymorphism-in-typescript/)                               |
-| 20          | Polymorphism Use Cases          | NA                        <br/>                                                                         | [Lecture Notes](https://cloudaffle.com/series/object-oriented-typescript/polymorphism-by-example/)                                  |
+| 20          | Polymorphism Use Cases          | NA <br/>                                                                                                | [Lecture Notes](https://cloudaffle.com/series/object-oriented-typescript/polymorphism-by-example/)                                  |
 | 21          | Polymorphism Advantages         | NA                                                                                                      | [Lecture Notes](https://cloudaffle.com/series/object-oriented-typescript/polymorphism-by-example/#the-power-of-polymorphism)        |
 | 22          | Inheritance                     | [Code Branch](https://github.com/manikbajaj/typescript-design-patterns/tree/inheritance)                | [Lecture Notes](https://cloudaffle.com/series/object-oriented-typescript/inheritance-in-typescript/)                                |
 | 23          | Inheritance Implementation      | [Code Branch](https://github.com/manikbajaj/typescript-design-patterns/tree/inheritance-implementation) | [Lecture Notes](https://cloudaffle.com/series/object-oriented-typescript/inheritance-in-typescript/#real-world-application-example) |
@@ -64,7 +66,7 @@ reusability? If so, you've come to the right place!
 # Solid Design Principles
 
 | Lecture No. | Lecture                                                | Git Branch                                                                                                                                                                                                           | Notes                                                                                                                                  |
-|:------------|:-------------------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------|
+| :---------- | :----------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------- |
 | 25          | Solid Design Principles Introduction                   | NA                                                                                                                                                                                                                   | [Lecture Notes](https://cloudaffle.com/series/solid-design-principles/what-is-solid/)                                                  |
 | 26          | Single Responsibility Principle (SRP) Intro            | [Code Branch](https://github.com/manikbajaj/typescript-design-patterns/tree/single-responsibility-principle-intro)                                                                                                   | [Lecture Notes](https://cloudaffle.com/series/solid-design-principles/single-responsibility-principle/)                                |
 | 27          | Real World Application (SRP)                           | [Practice Branch](https://github.com/manikbajaj/typescript-design-patterns/tree/application-srp-practice), [Solution Branch](https://github.com/manikbajaj/typescript-design-patterns/tree/application-srp-solution) | [Lecture Notes](https://cloudaffle.com/series/solid-design-principles/single-responsibility-principle/#real-world-applications-of-srp) |
@@ -85,7 +87,7 @@ reusability? If so, you've come to the right place!
 # Creational Design Patterns
 
 | Lecture No. | Lecture                                          | Git Branch                                                                                                                   | Notes                                                                                                                                                     |
-|:------------|:-------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| :---------- | :----------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 41          | Introduction To Creational Design Patterns       | NA                                                                                                                           | [Lecture Notes](https://cloudaffle.com/series/creational-design-patterns/intro-to-creational-design-patterns/)                                            |
 | 42          | Singleton Pattern                                | [Code Branch](https://github.com/manikbajaj/typescript-design-patterns/tree/singleton-pattern)                               | [Lecture Notes](https://cloudaffle.com/series/creational-design-patterns/singleton-design-patterns/)                                                      |
 | 43          | When To Use Singleton Pattern                    | [Code Branch](https://github.com/manikbajaj/typescript-design-patterns/tree/singleton-pattern)                               | [Lecture Notes](https://cloudaffle.com/series/creational-design-patterns/singleton-design-patterns/#when-to-use-the-singleton-pattern)                    |
@@ -100,7 +102,7 @@ reusability? If so, you've come to the right place!
 | 52          | Caveats or Criticism Of Prototype Pattern        | [Code Branch](https://github.com/manikbajaj/typescript-design-patterns/tree/caveats-or-criticism-of-prototype-pattern)       | [Lecture Notes](https://cloudaffle.com/series/creational-design-patterns/prototype-pattern-criticism/)                                                    |
 | 53          | Prototype Use Cases                              | [Code Branch](https://github.com/manikbajaj/typescript-design-patterns/tree/caveats-or-criticism-of-prototype-pattern)       | [Lecture Notes](https://cloudaffle.com/series/creational-design-patterns/where-to-use-prototype-pattern/)                                                 |
 | 54          | Builder Pattern                                  | [Code Branch](https://github.com/manikbajaj/typescript-design-patterns/tree/builder-pattern)                                 | [Lecture Notes](https://cloudaffle.com/series/creational-design-patterns/builder-pattern/)                                                                |
-| 55          | When To Use  Builder Pattern                     | [Code Branch](https://github.com/manikbajaj/typescript-design-patterns/tree/builder-pattern)                                 | [Lecture Notes](https://cloudaffle.com/series/creational-design-patterns/builder-pattern/#when-to-use-the-builder-pattern)                                |
+| 55          | When To Use Builder Pattern                      | [Code Branch](https://github.com/manikbajaj/typescript-design-patterns/tree/builder-pattern)                                 | [Lecture Notes](https://cloudaffle.com/series/creational-design-patterns/builder-pattern/#when-to-use-the-builder-pattern)                                |
 | 56          | Builder Real World Implementation                | [Code Branch](https://github.com/manikbajaj/typescript-design-patterns/tree/builder-real-world-implementation)               | [Lecture Notes](https://cloudaffle.com/series/creational-design-patterns/builder-pattern-implementation/)                                                 |
 | 57          | Builder Pattern Advantages                       | [Code Branch](https://github.com/manikbajaj/typescript-design-patterns/tree/builder-real-world-implementation)               | [Lecture Notes](https://cloudaffle.com/series/creational-design-patterns/builder-pattern-implementation/#advantages-of-using-the-builder-pattern)         |
 | 58          | Caveats or Criticism Of Builder Pattern          | [Code Branch](https://github.com/manikbajaj/typescript-design-patterns/tree/builder-real-world-implementation)               | [Lecture Notes](https://cloudaffle.com/series/creational-design-patterns/builder-pattern-criticism/)                                                      |
@@ -121,7 +123,7 @@ reusability? If so, you've come to the right place!
 # Structural Design Patterns
 
 | Lecture No. | Lecture                                    | Git Branch                                                                                                          | Notes                                                                                                                                                |
-|:------------|:-------------------------------------------|:--------------------------------------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------|
+| :---------- | :----------------------------------------- | :------------------------------------------------------------------------------------------------------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 72          | Introduction To Structural Design Patterns | NA                                                                                                                  | [Lecture Notes](https://cloudaffle.com/series/structural-design-patterns/intro-to-structural-design-patterns/)                                       |
 | 73          | Facade Pattern                             | [Code Branch](https://github.com/manikbajaj/typescript-design-patterns/tree/facade-pattern)                         | [Lecture Notes](https://cloudaffle.com/series/structural-design-patterns/facade-pattern-classic-implementation/)                                     |
 | 74          | When To Use Facade Pattern                 | [Code Branch](https://github.com/manikbajaj/typescript-design-patterns/tree/facade-pattern)                         | [Lecture Notes](https://cloudaffle.com/series/structural-design-patterns/facade-pattern-classic-implementation/#when-do-you-need-the-facade-pattern) |
@@ -157,7 +159,7 @@ reusability? If so, you've come to the right place!
 # Behavioural Design Patterns
 
 | Lecture No. | Lecture                                             | Git Branch                                                                                                                     | Notes                                                                                                                                                         |
-|:------------|:----------------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| :---------- | :-------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | 103         | Introduction To Behavioural Design Patterns         | NA                                                                                                                             | [Lecture Notes](https://cloudaffle.com/series/behavioral-design-patterns/intro-to-behavioral-design-patterns/)                                                |
 | 104         | Observer Pattern                                    | [Code Branch](https://github.com/manikbajaj/typescript-design-patterns/tree/observer-pattern)                                  | [Lecture Notes](https://cloudaffle.com/series/behavioral-design-patterns/observer-pattern/)                                                                   |
 | 105         | When To Use Observer Pattern                        | [Code Branch](https://github.com/manikbajaj/typescript-design-patterns/tree/observer-pattern)                                  | [Lecture Notes](https://cloudaffle.com/series/behavioral-design-patterns/observer-pattern/#when-to-use-the-obsever-pattern)                                   |
@@ -193,7 +195,7 @@ reusability? If so, you've come to the right place!
 | 135         | When To Use The State Design Pattern                | [Code Branch](https://github.com/manikbajaj/typescript-design-patterns/tree/state-design-pattern)                              | [Lecture Notes](https://cloudaffle.com/series/behavioral-design-patterns/state-pattern/#when-to-use-state-pattern)                                            |
 | 136         | State Design Pattern Real World Implementation      | [Code Branch](https://github.com/manikbajaj/typescript-design-patterns/tree/state-pattern-real-world-implementation)           | [Lecture Notes](https://cloudaffle.com/series/behavioral-design-patterns/state-implementation/)                                                               |
 | 137         | State Design Pattern Advantages                     | [Code Branch](https://github.com/manikbajaj/typescript-design-patterns/tree/state-pattern-real-world-implementation)           | [Lecture Notes](https://cloudaffle.com/series/behavioral-design-patterns/state-implementation/#advantages-of-the-state-design-pattern)                        |
-| 138         | Caveats Or Criticism Of  The State Design Pattern   | [Code Branch](https://github.com/manikbajaj/typescript-design-patterns/tree/state-pattern-real-world-implementation)           | [Lecture Notes](https://cloudaffle.com/series/behavioral-design-patterns/state-criticism/)                                                                    |
+| 138         | Caveats Or Criticism Of The State Design Pattern    | [Code Branch](https://github.com/manikbajaj/typescript-design-patterns/tree/state-pattern-real-world-implementation)           | [Lecture Notes](https://cloudaffle.com/series/behavioral-design-patterns/state-criticism/)                                                                    |
 | 139         | State Design Pattern Use Cases                      | [Code Branch](https://github.com/manikbajaj/typescript-design-patterns/tree/state-pattern-real-world-implementation)           | [Lecture Notes](https://cloudaffle.com/series/behavioral-design-patterns/state-application/)                                                                  |
 | 140         | Chain of Responsibility Pattern                     | [Code Branch](https://github.com/manikbajaj/typescript-design-patterns/tree/chain-of-responsibility-pattern)                   | [Lecture Notes](https://cloudaffle.com/series/behavioral-design-patterns/chain-of-responsibility/)                                                            |
 | 141         | When To Use Chain of Responsibility                 | [Code Branch](https://github.com/manikbajaj/typescript-design-patterns/tree/chain-of-responsibility-pattern)                   | [Lecture Notes](https://cloudaffle.com/series/behavioral-design-patterns/chain-of-responsibility/#when-to-use-chain-of-responsibilty)                         |
@@ -201,10 +203,3 @@ reusability? If so, you've come to the right place!
 | 143         | Chain of Responsibility Advantages                  | [Code Branch](https://github.com/manikbajaj/typescript-design-patterns/tree/chain-of-responsibility-real-world-implementation) | [Lecture Notes](https://cloudaffle.com/series/behavioral-design-patterns/chain-of-responsibility-implementation/#advantages-of-using-chain-of-responsibility) |
 | 144         | Caveats Or Criticism Of The Chain of Responsibility | [Code Branch](https://github.com/manikbajaj/typescript-design-patterns/tree/chain-of-responsibility-real-world-implementation) | [Lecture Notes](https://cloudaffle.com/series/behavioral-design-patterns/criticism-chain-of-responsibility/)                                                  |
 | 145         | Chain of Responsibility Use Cases                   | [Code Branch](https://github.com/manikbajaj/typescript-design-patterns/tree/chain-of-responsibility-real-world-implementation) | [Lecture Notes](https://cloudaffle.com/series/behavioral-design-patterns/chain-of-responsibility-application/)                                                |
-
-
-
-
-
-
-
